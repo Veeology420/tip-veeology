@@ -1,1 +1,141 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veeology Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1:#041611;
+      --bg2:#08211a;
+      --bg3:#03110d;
+      --card:rgba(2,16,13,.92);
+      --card-border:rgba(145,255,211,.08);
+      --text:#eef8f4;
+      --muted:rgba(238,248,244,.88);
+      --glow-blue:#73e7ff;
+      --glow-green:#6cffbc;
+    }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-height:100%; }
+    body {
+      font-family:"Quicksand", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 50% -5%, rgba(50,189,154,.16), transparent 30%),
+        radial-gradient(circle at 12% 18%, rgba(115,231,255,.08), transparent 18%),
+        radial-gradient(circle at 90% 22%, rgba(108,255,188,.08), transparent 18%),
+        linear-gradient(180deg, var(--bg1), var(--bg2) 40%, var(--bg3));
+      overflow-x:hidden;
+    }
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.20;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 0 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(132,255,225,.8) 0 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(115,231,255,.75) 0 1px, transparent 1.4px);
+      background-size:180px 180px, 240px 240px, 320px 320px;
+      background-position:0 0, 60px 110px, 160px 40px;
+    }
+    .page {
+      position:relative;
+      z-index:1;
+      width:min(1680px, calc(100% - 28px));
+      margin:10px auto 12px;
+      min-height:calc(100svh - 20px);
+      display:flex;
+      flex-direction:column;
+    }
+    .hero {
+      position:relative;
+      overflow:hidden;
+      border-radius:34px;
+      min-height:clamp(280px, 42svh, 430px);
+      background:url('banner.png') center 32%/cover no-repeat;
+      box-shadow:0 0 0 1px rgba(153,255,222,.08),0 0 36px rgba(77,255,195,.14),0 0 90px rgba(57,194,255,.14);
+    }
+    .hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 20% 25%, rgba(255,241,173,0.10), transparent 18%),radial-gradient(circle at 82% 22%, rgba(115,231,255,0.10), transparent 16%),linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.05) 55%, rgba(0,0,0,0.14));
+      pointer-events:none;
+    }
+    .hero-content {
+      position:absolute; left:0; right:0; bottom:16px; text-align:center; padding:0 22px; z-index:2;
+    }
+    .hero-sparkles{ position:absolute; inset:0; pointer-events:none; z-index:1; }
+    .hero-sparkles::before,.hero-sparkles::after{
+      content:""; position:absolute; inset:0; opacity:.55;
+      background-image:radial-gradient(circle, rgba(255,255,255,.92) 0 1.2px, transparent 1.8px),radial-gradient(circle, rgba(255,241,173,.88) 0 1.1px, transparent 1.7px),radial-gradient(circle, rgba(115,231,255,.85) 0 1px, transparent 1.6px);
+      background-size:140px 140px, 200px 200px, 260px 260px;
+      animation: drift 18s linear infinite;
+    }
+    .hero-sparkles::after{ opacity:.35; background-position:40px 90px, 120px 10px, 200px 60px; animation-duration:26s; }
+    .subtitle {
+      margin:0; font-size:clamp(1rem, 2vw, 1.16rem); color:#f7fff9;
+      text-shadow:-1px -1px 0 rgba(0,0,0,.65),1px -1px 0 rgba(0,0,0,.65),-1px 1px 0 rgba(0,0,0,.65),1px 1px 0 rgba(0,0,0,.65),0 0 10px rgba(0,0,0,.45),0 0 14px rgba(255,244,190,.28),0 0 24px rgba(108,255,188,.18);
+      animation: subtitleGlow 3.2s ease-in-out infinite alternate; position:relative; z-index:2;
+    }
+    .grid { margin-top:12px; display:grid; grid-template-columns:1fr .92fr; gap:14px; align-items:stretch; flex:1 1 auto; min-height:0; }
+    .card {
+      position:relative; background:var(--card); border-radius:28px; border:1px solid var(--card-border);
+      box-shadow:0 0 0 1px rgba(255,255,255,.02) inset,0 0 28px rgba(77,255,195,.10),0 0 55px rgba(57,194,255,.07);
+      overflow:hidden; backdrop-filter: blur(10px);
+    }
+    .card::before{ content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit; background:radial-gradient(circle at 10% 15%, rgba(255,241,173,.06), transparent 20%),radial-gradient(circle at 88% 18%, rgba(115,231,255,.05), transparent 18%),radial-gradient(circle at 70% 78%, rgba(108,255,188,.05), transparent 18%); }
+    .support { padding:18px 18px 14px; }
+    .eyebrow { display:block; font-size:.9rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:rgba(240,255,247,.82); margin-bottom:10px; }
+    .heading { margin:0 0 14px; font-family:"Cinzel", serif; font-size:clamp(1.8rem, 3.5vw, 2.6rem); line-height:1; color:#f6f4eb; }
+    .bodycopy { margin:0 0 18px; font-size:.98rem; line-height:1.7; color:var(--muted); max-width:760px; }
+    .paypal-btn { display:inline-flex; width:100%; min-height:50px; align-items:center; justify-content:center; border-radius:999px; text-decoration:none; border:none; font-weight:700; font-size:0.95rem; color:#071816; background:linear-gradient(90deg, #91f1d3, #77d8ea); box-shadow:0 0 20px rgba(115,231,255,.28), 0 0 36px rgba(101,255,187,.16); transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; position:relative; overflow:hidden; }
+    .paypal-btn::before{ content:""; position:absolute; inset:-120% auto -120% -30%; width:38%; transform:rotate(18deg); background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); transition:left .55s ease; filter:blur(4px); }
+    .paypal-btn:hover { transform:translateY(-1px); filter:brightness(1.02); box-shadow:0 0 30px rgba(115,231,255,.34), 0 0 44px rgba(101,255,187,.22); }
+    .paypal-btn:hover::before{ left:105%; }
+    .mini-grid { margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .mini { min-height:42px; border-radius:16px; border:1px solid rgba(137,255,219,.08); background:rgba(10,30,24,.56); display:flex; align-items:center; justify-content:center; font-size:1.2rem; box-shadow:inset 0 0 0 1px rgba(255,255,255,.015), 0 0 18px rgba(108,255,188,.03); }
+    .mini:hover{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 0 22px rgba(115,231,255,.08), 0 0 28px rgba(108,255,188,.06); }
+    .portrait-wrap { display:flex; align-items:center; justify-content:center; padding:12px; min-height:100%; background:rgba(0,0,0,.28); }
+    .portrait { width:100%; max-width:min(440px, 100%); aspect-ratio:1 / 1; object-fit:cover; display:block; border-radius:28px; box-shadow:0 0 0 1px rgba(255,255,255,.02),0 0 30px rgba(57,194,255,.10),0 0 55px rgba(101,255,187,.06); background:#020909; }
+    @keyframes subtitleGlow{ from{ text-shadow:-1px -1px 0 rgba(0,0,0,.65),1px -1px 0 rgba(0,0,0,.65),-1px 1px 0 rgba(0,0,0,.65),1px 1px 0 rgba(0,0,0,.65),0 0 10px rgba(0,0,0,.45),0 0 10px rgba(255,244,190,.18),0 0 18px rgba(108,255,188,.10);} to{ text-shadow:-1px -1px 0 rgba(0,0,0,.65),1px -1px 0 rgba(0,0,0,.65),-1px 1px 0 rgba(0,0,0,.65),1px 1px 0 rgba(0,0,0,.65),0 0 10px rgba(0,0,0,.45),0 0 18px rgba(255,244,190,.34),0 0 28px rgba(108,255,188,.22),0 0 36px rgba(115,231,255,.16);} }
+    @keyframes drift{ from{ transform:translateY(0px) translateX(0px); } 50%{ transform:translateY(6px) translateX(8px); } to{ transform:translateY(0px) translateX(0px); } }
+    @media (max-width:1050px) { .grid { grid-template-columns:1fr; } .hero { min-height:360px; background-position:center 32%; } }
+    @media (max-width:680px) { .page { width:min(100%, calc(100% - 18px)); margin-top:10px; min-height:auto; } .hero, .card { border-radius:22px; } .support { padding:22px 18px 18px; } .mini-grid { grid-template-columns:1fr 1fr; } .hero-content { bottom:12px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-sparkles" aria-hidden="true"></div>
+        <p class="subtitle">A cozy little fairy powered by coffee and fairy dust ✨</p>
+      </div>
+    </section>
+    <section class="grid">
+      <div class="card support">
+        <span class="eyebrow">Magical Support</span>
+        <h2 class="heading">Tip Jar</h2>
+        <p class="bodycopy">Every tip helps support the stream, future upgrades, and more cozy fairy-chaos for the community 💚 Thank you so much for being here.</p>
+        <a class="paypal-btn" href="https://www.paypal.com/ncp/payment/9YHYUKFVVQAU6" target="_blank" rel="noopener noreferrer">Donate with PayPal</a>
+        <div class="mini-grid">
+          <div class="mini">🌿</div>
+          <div class="mini">✨</div>
+          <div class="mini">💖</div>
+          <div class="mini">☕</div>
+        </div>
+      </div>
+      <div class="card portrait-wrap">
+        <img class="portrait" src="profile.png" alt="Veeology portrait" />
+      </div>
+    </section>
+  </div>
+</body>
+</html>
